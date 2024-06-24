@@ -7,9 +7,11 @@ The complete code is currently being organized and will be released later. At pr
 
 The DE module's operations are integrated into the transformer architecture. For details, please refer to the `modeling_bart.py` and `modeling_roberta_.py` files.
 
+The definition of inter / intra-event dependencies can be found in the data processing file `processor_multiarg.py`.
+
 ## Event-specific Information Aggregation (EIA) Module
 
-The definition of inter / intra-event dependencies can be found in the data processing file `processor_multiarg.py`.
+The EIA module's operations can be found in `DEEIA.py`.
 
 Detailed comments are provided within the files for your reference. Our code is built upon the work of PAIE (https://github.com/mayubo2333/PAIE), and we hope it will be helpful to you!
 
