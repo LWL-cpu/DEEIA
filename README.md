@@ -5,7 +5,7 @@ The complete code is currently being organized and will be released soon. At pre
 
 ## Dependency-guided Encoder (DE) Module
 
-The DE module's operations need to be integrated into the transformer architecture. For details, please refer to the `modeling_bart.py` and `modeling_roberta_.py` files.
+The DE module's operations are integrated into the transformer architecture. For details, please refer to the `modeling_bart.py` and `modeling_roberta_.py` files.
 
 ## Event-specific Information Aggregation (EIA) Module
 
