@@ -1,7 +1,7 @@
 # DEEIA
 The code for Beyond Single-Event Extraction: Towards Efficient Document-Level Multi-Event Argument Extraction , Findings of ACL2024. The paper can be seen on arXiv (https://arxiv.org/abs/2405.01884).
 
-The complete code is currently being organized and will be released soon. At present, we have made available the core code from the paper, including the Dependency-guided Encoder (DE) module and the Event-specific Information Aggregation (EIA) module.
+The complete code is currently being organized and will be released later. At present, we have made available the core code from the paper, including the Dependency-guided Encoder (DE) module and the Event-specific Information Aggregation (EIA) module.
 
 ## Dependency-guided Encoder (DE) Module
 
