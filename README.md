@@ -11,5 +11,5 @@ The DE module's operations are integrated into the transformer architecture. For
 
 The definition of `inter/intra-event dependencies` can be found in the data processing file `processor_multiarg.py`.
 
-Detailed comments are provided within the files for your reference. Our code is built upon the work of PAIE [https://github.com/mayubo2333/PAIE], and we hope it will be helpful to you!
+Detailed comments are provided within the files for your reference. Our code is built upon the work of PAIE (https://github.com/mayubo2333/PAIE), and we hope it will be helpful to you!
 
