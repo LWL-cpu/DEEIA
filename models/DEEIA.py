@@ -109,7 +109,7 @@ class DEEIA(RobertaPreTrainedModel):
                         if p_start_off >= self.config.max_enc_seq_length  or p_end_off >= self.config.max_enc_seq_length:
                             prompt_query_sub = torch.mean(prompt_query_sub, dim=0).unsqueeze(0)
                         else:
-                            prompt_query_sub_attention = encoder_attention[p_start_off:p_end_off]
+                            prompt_query_sub_attention = encoder_attention[p_start:p_end]
                             if prompt_query_sub_attention.shape[0] == 0:
                                 prompt_query_sub_attention = encoder_attention[0]
                             prompt_query_sub = torch.mean(prompt_query_sub, dim=0).unsqueeze(0)
