@@ -55,7 +55,7 @@ python -m spacy download en_core_web_sm
 
 ## 2. Data Preprocessing
 
-You can refer to the **PAIE** project[here](https://github.com/mayubo2333/PAIE) to obtain the datasets. 
+You can refer to the **PAIE** project [here](https://github.com/mayubo2333/PAIE) to obtain the datasets. 
 
 ## 3. Training and Inference
 
