@@ -101,22 +101,22 @@ class DEEIA(RobertaPreTrainedModel):
 
                     start_logits_list = list()
                     end_logits_list = list()
-                    for (p_start,p_end, p_start_off, p_end_off) in zip(prompt_slots['tok_s'], prompt_slots['tok_e'], prompt_slots['tok_s_off'], prompt_slots['tok_e_off']):
-                        prompt_query_sub = context_output[p_start:p_end]
+                    for (p_start_off, p_end_off) in zip(prompt_slots['tok_s_off'], prompt_slots['tok_e_off']):
+                        prompt_query_sub = context_output[p_start_off:p_end_off]
                         
                         if prompt_query_sub.shape[0] == 0:
                             prompt_query_sub = context_output[0].unsqueeze(0)
                         if p_start_off >= self.config.max_enc_seq_length  or p_end_off >= self.config.max_enc_seq_length:
                             prompt_query_sub = torch.mean(prompt_query_sub, dim=0).unsqueeze(0)
                         else:
-                            prompt_query_sub_attention = encoder_attention[p_start:p_end]
+                            prompt_query_sub_attention = encoder_attention[p_start_off:p_end_off]
                             if prompt_query_sub_attention.shape[0] == 0:
                                 prompt_query_sub_attention = encoder_attention[0]
                             prompt_query_sub = torch.mean(prompt_query_sub, dim=0).unsqueeze(0)
                             prompt_query_sub_attention = torch.mean(prompt_query_sub_attention, dim=0).unsqueeze(0)
                             context_rs = self.context_pooling(prompt_query_sub_attention, event_trigger_attention, decoder_context[i])
                             prompt_query_sub = torch.tanh(self.contextual_merger(torch.cat((prompt_query_sub, context_rs), dim=-1)))
-
+                            
                         start_query = (prompt_query_sub*self.w_prompt_start).unsqueeze(-1) # [1, H, 1]
                         end_query = (prompt_query_sub*self.w_prompt_end).unsqueeze(-1)     # [1, H, 1]
 
