@@ -67,8 +67,8 @@ You can train models by running the corresponding scripts:
 
 ```bash
 bash ./scripts/train_wikievent_roberta.sh
-bash ./scripts/train_wikievent_rams.sh
-bash ./scripts/train_wikievent_mlee.sh
+bash ./scripts/train_rams_roberta.sh
+bash ./scripts/train_mlee_roberta.sh
 ```
 
 Each script is tailored to a specific dataset and configuration. You may modify the settings inside these scripts to suit your needs.
