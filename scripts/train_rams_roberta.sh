@@ -24,7 +24,7 @@ do
         --max_steps=10000 \
         --max_enc_seq_length 512 \
         --max_prompt_seq_length 330 \
-        --lamb  0.1 \
+        --lamb  1e-5 \
         --bipartite
 
 done
