@@ -527,15 +527,15 @@ class MultiargProcessor(DSET_processor):
             while len(dec_table_ids) < max_dec_seq_len:
                 dec_table_ids.append(self.tokenizer.pad_token_id)
                 dec_table_mask.append(self.args.pad_mask_token)
-            if len(all_ids) > 500:
-                enc_attention_mask = torch.zeros((2, 500, 500),
+            if len(all_ids) > self.args.max_enc_seq_length:
+                enc_attention_mask = torch.zeros((2, self.args.max_enc_seq_length, self.args.max_enc_seq_length),
                                                  dtype=torch.float32)
             if len(all_ids) > self.args.max_enc_seq_length:
                 all_ids = all_ids[:self.args.max_enc_seq_length]
                 all_mask_ids = all_mask_ids[:self.args.max_enc_seq_length]
 
             if len(list_arg_2_prompt_slots) == 1:
-                enc_attention_mask = torch.zeros((2, 500, 500),
+                enc_attention_mask = torch.zeros((2, self.args.max_enc_seq_length, self.args.max_enc_seq_length),
                                                  dtype=torch.float32)
 
                 # NOTE: one annotation as one decoding input
