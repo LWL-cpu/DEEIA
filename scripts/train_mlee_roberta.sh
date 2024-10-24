@@ -23,8 +23,8 @@ do
         --learning_rate=$LR \
         --batch_size=4 \
         --max_steps=10000 \
-        --max_enc_seq_length 500 \
-        --max_dec_seq_length 500 \
+        --max_enc_seq_length 512 \
+        --max_dec_seq_length 512 \
         --window_size 250 \
         --bipartite \
         --lamb 0.1
