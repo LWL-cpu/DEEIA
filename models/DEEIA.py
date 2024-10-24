@@ -102,7 +102,11 @@ class DEEIA(RobertaPreTrainedModel):
                     start_logits_list = list()
                     end_logits_list = list()
                     for (p_start_off, p_end_off) in zip(prompt_slots['tok_s_off'], prompt_slots['tok_e_off']):
-                        prompt_query_sub = context_output[p_start_off:p_end_off]
+                        
+                        if self.config.dataset == 'wikievent':
+                            prompt_query_sub = decoder_prompt_output[p_start:p_end]
+                        else:
+                            prompt_query_sub = context_output[p_start_off:p_end_off]
                         
                         if prompt_query_sub.shape[0] == 0:
                             prompt_query_sub = context_output[0].unsqueeze(0)
