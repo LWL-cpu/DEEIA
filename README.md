@@ -55,7 +55,7 @@ python -m spacy download en_core_web_sm
 
 ## 2. Data Preprocessing
 
-You can run download_data.sh to obtain the datasets. 
+You can run download_data.sh to obtain the datasets. For more details, you can refer to TabEAE [here](https://github.com/Stardust-hyx/TabEAE)
 
 ## 3. Training and Inference
 
