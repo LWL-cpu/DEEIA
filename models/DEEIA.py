@@ -67,7 +67,7 @@ class DEEIA(RobertaPreTrainedModel):
             return_dict=True,
         structural_mask=torch.stack(enc_attention_mask, dim=0))  # DE module
         enc_outputs = context_outputs_.hidden_states
-        decoder_context = enc_outputs[self.decode_layer_start]
+        decoder_contexts = enc_outputs[self.decode_layer_start]
 
         if self.config.context_representation == 'decoder':
             context_outputs = enc_outputs[-1]
@@ -82,8 +82,8 @@ class DEEIA(RobertaPreTrainedModel):
         total_loss = 0.
         if len(event_triggers) == 0:
             print(len(event_triggers))
-        for i, (context_output, encoder_attention, arg_joint_prompt, old_tok_to_new_tok_index, event_trigger) in \
-            enumerate(zip(context_outputs, encoder_attentions, arg_joint_prompts, old_tok_to_new_tok_indexs, event_triggers)):
+        for i, (context_output, decoder_context, encoder_attention, arg_joint_prompt, old_tok_to_new_tok_index, event_trigger) in \
+            enumerate(zip(context_outputs, decoder_contexts, encoder_attentions, arg_joint_prompts, old_tok_to_new_tok_indexs, event_triggers)):
             
             batch_loss = list()
             cnt = 0
