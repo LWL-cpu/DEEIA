@@ -67,7 +67,7 @@ class DEEIA(RobertaPreTrainedModel):
             return_dict=True,
         structural_mask=torch.stack(enc_attention_mask, dim=0))  # DE module
         enc_outputs = context_outputs_.hidden_states
-        decoder_contexts = enc_outputs[self.decode_layer_start]
+        decoder_context = enc_outputs[self.decode_layer_start]
 
         if self.config.context_representation == 'decoder':
             context_outputs = enc_outputs[-1]
@@ -75,15 +75,22 @@ class DEEIA(RobertaPreTrainedModel):
             context_outputs = decoder_context
 
         encoder_attentions = context_outputs_.attentions[self.decode_layer_start].mean(1)
-        encoder_attentions = encoder_attentions
+        decoder_prompt_outputs = self.roberta(
+            input_ids=dec_prompt_ids,
+            attention_mask=dec_prompt_mask_ids,
+            encoder_hidden_states=decoder_context,
+            encoder_attention_mask=all_mask_ids,
+            cross_attention=True,
+        ).last_hidden_state 
+        
 
 
         logit_lists = list()
         total_loss = 0.
         if len(event_triggers) == 0:
             print(len(event_triggers))
-        for i, (context_output, decoder_context, encoder_attention, arg_joint_prompt, old_tok_to_new_tok_index, event_trigger) in \
-            enumerate(zip(context_outputs, decoder_contexts, encoder_attentions, arg_joint_prompts, old_tok_to_new_tok_indexs, event_triggers)):
+        for i, (context_output, decoder_prompt_output, encoder_attention, arg_joint_prompt, old_tok_to_new_tok_index, event_trigger) in \
+            enumerate(zip(context_outputs, decoder_prompt_outputs, encoder_attentions, arg_joint_prompts, old_tok_to_new_tok_indexs, event_triggers)):
             
             batch_loss = list()
             cnt = 0
@@ -104,7 +111,7 @@ class DEEIA(RobertaPreTrainedModel):
                     for (p_start,p_end, p_start_off, p_end_off) in zip(prompt_slots['tok_s'], prompt_slots['tok_e'], prompt_slots['tok_s_off'], prompt_slots['tok_e_off']):
                         
                         if self.config.dataset == 'wikievent':
-                            prompt_query_sub = decoder_context[p_start:p_end]
+                            prompt_query_sub = decoder_prompt_output[p_start:p_end]
                         else:
                             prompt_query_sub = context_output[p_start_off:p_end_off]
                         
